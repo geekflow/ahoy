@@ -1,0 +1,3 @@
+graft ahoy/templates
+graft ahoy/static
+include ahoy/schema.sql
