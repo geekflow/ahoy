@@ -1,18 +1,18 @@
 DROP TABLE IF EXISTS gs_version;
 CREATE TABLE gs_version (
   id         INTEGER PRIMARY KEY AUTOINCREMENT,
-  version    string NOT NULL,
+  version    string   NOT NULL,
   start_date DATETIME NOT NULL,
-  end_date DATETIME NOT NULL
+  end_date   DATETIME NOT NULL
 );
 
 DROP TABLE IF EXISTS gs_view;
 CREATE TABLE gs_view (
   id        INTEGER PRIMARY KEY AUTOINCREMENT,
-  name      string NOT NULL,
-  parent_id INTEGER,
-  depth     INTEGER,
-  sequence  INTEGER
+  name      string  NOT NULL,
+  parent_id INTEGER NOT NULL,
+  depth     INTEGER NOT NULL,
+  sequence  INTEGER NOT NULL
 );
 
 DROP TABLE IF EXISTS gs_related_version_view;

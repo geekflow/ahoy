@@ -19,6 +19,9 @@ from ahoy.model.view import View
 
 @pytest.fixture(scope='function')
 def setup(session):
+    session.query(Version).delete()
+    session.query(View).delete()
+
     version = Version('0.0.1', datetime.date.today(), datetime.date.today())
     session.add(version)
 

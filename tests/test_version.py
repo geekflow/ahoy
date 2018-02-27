@@ -10,14 +10,23 @@
 """
 import datetime
 
+import pytest
+
 from ahoy.model.version import Version
+
+
+@pytest.fixture(scope='function')
+def setup(session):
+    session.query(Version).delete()
+
+    version = Version('0.0.1', datetime.date.today(), datetime.date.today())
+    session.add(version)
+    session.commit()
 
 
 def test_query_model(session):
     version = Version('0.0.1', datetime.date.today(), datetime.date.today())
-
-    session.add(version)
-    session.commit()
+    version.id = 1
 
     result = session.query(Version).all()
 
