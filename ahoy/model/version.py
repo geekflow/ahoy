@@ -13,17 +13,22 @@ from . import Base
 
 class Version(Base):
     __tablename__ = 'gs_version'
+    # __table_args__ = (
+    #     Base.Index('gs_version_version_unique', 'version'),
+    # )
 
     id = Column(Integer, primary_key=True)
     version = Column(String(12), unique=True)
-    start_date = Column(DateTime, unique=False)
-    end_date = Column(DateTime, unique=False)
+    start_date = Column(DateTime, nullable=False)
+    end_date = Column(DateTime, nullable=False)
 
-    def __init__(self, id, version, start_date, end_date):
-        self.id = id
+    def __init__(self, version, start_date, end_date):
         self.version = version
         self.start_date = start_date
         self.end_date = end_date
 
+    def __eq__(self, other):
+        return self.id == other.id and self.version == other.version
+
     def __repr__(self):
-        return '<Version %r %r %r %r>' % (self.id, self.version, self.start_date, self.end_date)
+        return '<Version %r, %r, %r, %r>' % (self.id, self.version, self.start_date, self.end_date)

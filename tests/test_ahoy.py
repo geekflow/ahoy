@@ -26,9 +26,6 @@ def app():
     }
 
     app = create_app(config=config)
-    print(app.root_path)
-    print(app.root_path)
-    print(app.root_path)
 
     with app.app_context():
         init_db()

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    Version
+    View
     ~~~~~~~~~
 
 
@@ -8,10 +8,11 @@
     :license: MIT LICENSE 2.0, see license for more details.
 """
 from sqlalchemy import Column, Integer, String
+
 from . import Base
 
 
-class Version(Base):
+class View(Base):
     __tablename__ = 'gs_view'
 
     id = Column(Integer, primary_key=True)
@@ -20,9 +21,11 @@ class Version(Base):
     depth = Column(Integer)
     sequence = Column(Integer)
 
-    def __init__(self, id, name):
-        self.id = id
+    def __init__(self, name, parent_id, depth, sequence):
         self.name = name
+        self.parent_id = parent_id
+        self.depth = depth
+        self.sequence = sequence
 
     def __repr__(self):
-        return '<View %r %r %r %r %r>' % (self.id, self.name, self.parent_id, self.depth, self.sequence)
+        return '<View %r, %r, %r, %r, %r>' % (self.id, self.name, self.parent_id, self.depth, self.sequence)
