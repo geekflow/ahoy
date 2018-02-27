@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    test_ahoy
+    factory
     ~~~~~~~~~
 
     ahoy init.
@@ -32,32 +32,30 @@ def url_for_other_page(page):
     return url_for(request.endpoint, **args)
 
 
-def create_app(config_filepath='config/config.cfg'):
+def create_app(config_filepath='config/config.cfg', config=None):
     app = Flask(__name__, static_folder='static', static_url_path='', template_folder='templates')
 
     app.config.from_pyfile(config_filepath, silent=True)
 
-    # app.config.update(config or {})
     app.config.update(dict(
         DATABASE=os.path.join(app.root_path, 'ahoy.db'),
         DEBUG=True,
         SECRET_KEY=b'_5#y2L"F4Q8z\n\xec]/',
         USERNAME='admin',
         PASSWORD='admin',
-        DB_FILE_PATH='data/ahoy.db',
         SITE_ROOT=os.path.abspath(os.path.dirname(__file__)),
-        DB_URL='sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), '../data/ahoy.db'),
+        SQLALCHEMY_DATABASE_URI='sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                                                            '../data/ahoy.db'),
         DB_LOG_FLAG='True'
     ))
+
+    app.config.update(config or {})
 
     app.config.from_envvar('AHOY_SETTINGS', silent=True)
     app.config.from_object(__name__)
 
     from .model.database import DBManager as db
-    db_url = app.config.get('DB_URL')
-    print(db_url)
-
-    db.init(db_url, eval(app.config['DB_LOG_FLAG']))
+    db.init(app.config.get('SQLALCHEMY_DATABASE_URI'), eval(app.config['DB_LOG_FLAG']))
     db.init_db()
 
     register_blueprints(app)

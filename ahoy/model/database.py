@@ -8,6 +8,7 @@
 """
 
 from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql.expression import insert
 from sqlalchemy.orm import scoped_session, sessionmaker
 # from werkzeug import check_password_hash, generate_password_hash
@@ -35,7 +36,9 @@ class DBManager:
     @staticmethod
     def init(db_url, db_log_flag=True):
         DBManager.__engine = create_engine(db_url, convert_unicode=True, echo=db_log_flag) 
-        DBManager.__session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=DBManager.__engine))
+        DBManager.__session = scoped_session(sessionmaker(autocommit=False,
+                                                          autoflush=False,
+                                                          bind=DBManager.__engine))
             
         from ..model import Base
         Base.query = DBManager.__session.query_property()            
@@ -44,7 +47,7 @@ class DBManager:
     @staticmethod
     def init_db():
         from .version import Version
-        
+
         #insert(User).values(username='admin', password=generate_password_hash('admin'), email='geeksaga@geeksaga.com')
         #dao.add(User('admin', 'geeksaga@geeksaga.com', generate_password_hash('admin')))
         #dao.commit()
@@ -52,6 +55,10 @@ class DBManager:
     @staticmethod
     def session():
         return DBManager.__session
+
+    @staticmethod
+    def engine():
+        return DBManager.__engine
     
     def __del__(self):
         pass

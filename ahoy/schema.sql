@@ -1,7 +1,9 @@
 DROP TABLE IF EXISTS gs_version;
 CREATE TABLE gs_version (
   id         INTEGER PRIMARY KEY AUTOINCREMENT,
-  version    string NOT NULL
+  version    string NOT NULL,
+  start_date DATETIME NOT NULL,
+  end_date DATETIME NOT NULL
 );
 
 DROP TABLE IF EXISTS gs_view;

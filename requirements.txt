@@ -1,3 +1,5 @@
+alembic
+pytest
 Flask==0.12.2
 
 SQLAlchemy
