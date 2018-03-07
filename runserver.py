@@ -9,8 +9,13 @@
     :license: MIT LICENSE 2.0, see license for more details.
 """
 from ahoy.factory import create_app
+from ahoy.controller.function import FunctionView
 
 app = create_app()
+app.debug=True
+
+app.add_url_rule('/function', view_func=FunctionView.as_view('function_view'))
+
 
 if __name__ == '__main__':
     try:
