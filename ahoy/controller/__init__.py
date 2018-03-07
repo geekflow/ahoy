@@ -7,4 +7,4 @@
     :license: MIT LICENSE 2.0, see license for more details.
 """
 
-__all__ = ['function']
+__all__ = ['login', 'function']

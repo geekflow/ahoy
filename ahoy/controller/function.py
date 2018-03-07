@@ -15,7 +15,7 @@ from flask import render_template
 from flask.views import MethodView
 
 from ..blueprints.ahoy import bp
-from ..decorator import templated
+from ..decorator import template
 
 
 class FunctionView(MethodView):
@@ -24,7 +24,7 @@ class FunctionView(MethodView):
     #     print('dispatch_request')
     #     return render_template('function/add.html', page=request.args['page'] or None)
 
-    @templated('function/add.html')
+    @template('function/add.html')
     def get(self):
         print('Function GET')
         return dict(page=request.args['page'] or None)

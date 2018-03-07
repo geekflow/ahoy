@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block body %}
+  {% if error %}<p class="error"><strong>Error:</strong> {{ error }}{% endif %}
+  {% from "_formhelpers.html" import render_field %}
+  <form action="{{ url_for('.login') }}" method="post" class="form-horizontal">
+    {{ render_field(form.next_url, value= next_url) }}
+    <div class="form-group">
+    <label for="email" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-7">
+      {{ render_field(form.email, class="form-control", placeholder="Email address", autofocus="autofocus") }}
+    </div>
+    </div>
+    <div class="form-group">
+    <label for="password" class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-7">
+	  {{ render_field(form.password, class="form-control", placeholder="Password") }}
+	  </div>
+	  </div>
+	  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+	  <div class="checkbox">
+      <label class="checkbox">
+        <input type="checkbox" value="remember-me" />Remember me
+      </label>
+      </div>
+      </div>
+      </div>
+      <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Sign in</button>
+      </div>
+      </div>
+  </form>
+<script type="text/javascript">
+$('input[type=button]').click(function(e){
+	bootbox.confirm("로그아웃 하시겠습니까?", function(result) {
+		if(result){
+			window.location="{{ url_for('.logout') }}"
+		}
+	});
+});
+</script>
+{% endblock %}
